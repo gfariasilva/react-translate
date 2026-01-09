@@ -18,13 +18,13 @@ Para instalação da biblioteca de internacionalização (i18next):
 ```bash
 npm install react-i18next i18next --save
 
-npm install i18next-http-backend i18next-browser-languagedetector --save
+npm install i18next-resources-to-backend i18next-browser-languagedetector --save
 ```
 
 - OBS:
     - **i18next-browser**-languagedetector: caso queira detectar automaticamente a linguagem do browser do usuário
 
-    - **i18next-http-backend**: carregamento dinâmico das linguagens (não pré-builda tudo)
+    - **i18next-resources-to-backend**: carregamento dinâmico das linguagens (não pré-builda tudo)
 
 ## Arquivos de tradução
 
@@ -66,11 +66,28 @@ src/app/
 └─ [locale]/
    ├─ layout.tsx
    ├─ page.tsx
-   ├─ about/
-   │  └─ page.tsx
+   ├─ I18nProvider.tsx
    └─ (components)/
       └─ LangSwitcher.tsx
+      └─ Header.tsx
+      └─ HomeClient.tsx
 ```
 
 Dessa forma, ao usuário acessar qualquer endpoint, o locale vai ser atribuído de acordo com o parâmetro de URL `locale`.
 
+## Criar um Provider e modificar o Layout
+Faz-se necessário criar um Provider, a fim de que os componentes renderizados client-side possam usufruir da funcionalidade de Translate.
+
+- OBS: componentes renderizados server-side podem utilizar da biblioteca de forma nativa, sem necessidade de um Provider customizado.
+
+```
+src/app/
+└─ [locale]/
+   ├─ layout.tsx
+   ├─ page.tsx
+   ├─ I18nProvider.tsx   # Provider customizado
+```
+
+Após isso, faz-se necessário alterar o layout da aplicação para embrulhar os demais componentes nesse Provider criado previamente.
+
+Dessa forma, a funcionalidade de tradução funciona de forma desejada.

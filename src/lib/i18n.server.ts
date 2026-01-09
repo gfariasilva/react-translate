@@ -14,7 +14,7 @@ export async function initI18n(locale: string, ns: string[] = ['common']): Promi
     .use(
       // Carrega o JSON de tradução
       resourcesToBackend((lng: string, namespace: string) =>
-        import(`../public/locales/${lng}/${namespace}.json`)
+        import(`../../public/locales/${lng}/${namespace}.json`)
       )
     )
     .init({
