@@ -1,0 +1,43 @@
+version: "3.9"
+
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "5173:5173"
+    environment:
+      NODE_ENV: development
+    volumes:
+      - node_modules:/app/node_modules
+    develop:
+      watch:
+        - action: sync
+          path: ./src
+          target: /app/src
+        - action: sync
+          path: ./index.html
+          target: /app/index.html
+        - action: sync
+          path: ./public
+          target: /app/public
+        - action: sync
+          path: ./vite.config.ts
+          target: /app/vite.config.ts
+          ignore:
+            - node_modules/
+        - action: sync
+          path: ./tsconfig.json
+          target: /app/tsconfig.json
+        - action: rebuild
+          path: package.json
+        - action: rebuild
+          path: package-lock.json
+        - action: rebuild
+          path: pnpm-lock.yaml
+        - action: rebuild
+          path: yarn.lock
+
+volumes:
+  node_modules:
