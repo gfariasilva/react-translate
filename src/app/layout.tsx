@@ -2,6 +2,7 @@
 import { i18nConfig, AppLocale } from '@/lib/i18n.config';
 import { initI18n } from '@/lib/i18n.server';
 import { I18nextProvider } from 'react-i18next';
+import Header from './[locale]/(components)/Header';
 
 // Diz para o Next qual parâmetros de rotas dinâmicas deve gerar
 export async function generateStaticParams() {
@@ -37,7 +38,11 @@ export default async function RootLayout({
     <html lang={locale}>
       <body>
         <I18nextProvider i18n={i18n}>
-          {children}
+          <Header />
+          
+          <main style={{ padding: '16px' }}>
+            {children}
+          </main>
         </I18nextProvider>
       </body>
     </html>
