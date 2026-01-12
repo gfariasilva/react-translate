@@ -2,6 +2,13 @@ import { createInstance, i18n as I18nType } from 'i18next';
 import { initReactI18next } from 'react-i18next/initReactI18next';
 import resourcesToBackend from 'i18next-resources-to-backend';
 import { i18nConfig } from './i18n.config';
+import { cookies } from 'next/headers';
+
+export async function getLocale() {
+  const cookieStore = await cookies();
+  // Tenta pegar do cookie 'i18next', senão usa o padrão
+  return cookieStore.get('i18next')?.value || i18nConfig.defaultLocale;
+}
 
 // Cria uma nova instância do i18n
 // locale: linguagem atual
